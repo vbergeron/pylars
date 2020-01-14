@@ -4,3 +4,6 @@ __pycache__
 .vscode
 .coverage
 debug.py
+build
+dist
+*.egg-info
