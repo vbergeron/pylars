@@ -1,5 +1,5 @@
 from pandas import DataFrame
-from pylars.tests.helpers import ExprTestCase
+from tests.helpers import ExprTestCase
 from pylars.exprdsl import *
 
 

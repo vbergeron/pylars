@@ -1,6 +1,6 @@
 from pandas import DataFrame
 from pylars.exprdsl import *
-from pylars.tests.helpers import ExprTestCase
+from tests.helpers import ExprTestCase
 
 
 class TestBooleanExpr(ExprTestCase):

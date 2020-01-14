@@ -89,3 +89,8 @@ class Pylar:
 
     def order_by(self, *by):
         self.ast = OrderBy(self.ast, by)
+        return self
+
+    def drop(self, *columns):
+        self.ast = Drop(self.ast, list(columns))
+        return self

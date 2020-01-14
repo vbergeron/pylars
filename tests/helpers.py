@@ -9,7 +9,7 @@ class ExprTestCase(unittest.TestCase):
                    .select(expr.alias("result"))
                    .compile())
 
-        result = compute(input=self.data())
+        result = compute(testinput=self.data())
 
         self.assertEqual(expected,
                          list(result.result))

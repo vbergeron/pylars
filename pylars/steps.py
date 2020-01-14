@@ -199,14 +199,26 @@ class OrderBy(LinearStep):
     def __init__(self, parent: Step, by: List[ExprDSL]):
         check_schema(parent.schema, by)
         self.by = by
-        super().__init__(parent.schema)
+        super().__init__(parent, parent.schema)
 
     def compile_impl(self) -> List[str]:
         names = [x.get_name()
                  for x in self.by]
-        orders = [not isinstance(x, Desc)
+        orders = [not isinstance(x.expr, Desc)
                   for x in self.by]
 
-        print(orders)
+        return flatlist(f"{self.varname} = {self.parent.varname}.sort_values(",
+                        f"by={names},ascending={orders}",
+                        f").reset_index(drop=True)")
 
-        return []
+
+class Drop(LinearStep):
+    def __init__(self, parent: Step, columns: List[str]):
+        check_schema(parent.schema, map(C, columns))
+        self.columns = columns
+        super().__init__(parent, parent.schema)
+
+    def compile_impl(self) -> List[str]:
+        return flatlist(f"{self.varname} = {self.parent.varname}.drop(",
+                        f"columns={self.columns}",
+                        f").reset_index(drop=True)")
