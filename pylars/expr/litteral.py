@@ -16,4 +16,9 @@ class Litteral(Expr):
         return str(self.value)
 
     def compile(self, scope):
-        return [f"{scope.varname}_{self.varname} = {self.value}"]
+        if isinstance(self.value, str):
+            value_str = f"\"{self.value}\""
+        else:
+            value_str = f"{self.value}"
+
+        return [f"{scope.varname}_{self.varname} = {value_str}"]
