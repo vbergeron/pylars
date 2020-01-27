@@ -48,6 +48,21 @@ class GreaterThan(BinaryExpr):
         super().__init__(lhs, rhs, "operator.__gt__")
 
 
+class LesserThan(BinaryExpr):
+    def __init__(self, lhs: Expr, rhs: Expr):
+        super().__init__(lhs, rhs, "operator.__lt__")
+
+
+class GreaterThanOrEquals(BinaryExpr):
+    def __init__(self, lhs: Expr, rhs: Expr):
+        super().__init__(lhs, rhs, "operator.__ge__")
+
+
+class LesserThanOrEquals(BinaryExpr):
+    def __init__(self, lhs: Expr, rhs: Expr):
+        super().__init__(lhs, rhs, "operator.__le__")
+
+
 class Plus(BinaryExpr):
     def __init__(self, lhs: Expr, rhs: Expr):
         super().__init__(lhs, rhs, "operator.__add__")
@@ -61,6 +76,16 @@ class Minus(BinaryExpr):
 class Multiply(BinaryExpr):
     def __init__(self, lhs: Expr, rhs: Expr):
         super().__init__(lhs, rhs, "operator.__mul__")
+
+
+class TrueDiv(BinaryExpr):
+    def __init__(self, lhs: Expr, rhs: Expr):
+        super().__init__(lhs, rhs, "operator.__truediv__")
+
+
+class FloorDiv(BinaryExpr):
+    def __init__(self, lhs: Expr, rhs: Expr):
+        super().__init__(lhs, rhs, "operator.__floordiv__")
 
 
 class Modulo(BinaryExpr):

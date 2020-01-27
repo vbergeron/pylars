@@ -44,7 +44,7 @@ def check_schema(schema: Set[str], columns: List[ExprDSL]):
     checks = [c.is_compatible(schema) for c in columns]
     reasons = [check.errors for check in checks if not check.compatible]
     if len(reasons) > 0:
-        raise Exception(reasons)
+        raise Exception(reasons, schema)
 
 
 class LinearStep(Step):
@@ -141,7 +141,8 @@ class GroupBy(LinearStep):
     def __init__(self, parent, grps, *aggs):
         check_schema(parent.schema, map(C, grps))
         check_schema(parent.schema - set(grps), aggs)
-        super().__init__(parent, parent.schema)
+        super().__init__(parent,
+                         set(grps) | set(map(lambda x: x.get_name(), aggs)))
 
         self.parent = parent
         self.grps = set(grps)

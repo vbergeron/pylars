@@ -36,6 +36,9 @@ class ExprDSL(Expr):
     def alias(self, name: str):
         return ExprDSL(Alias(self.expr, name))
 
+    def astype(self, selftype):
+        return ExprDSL(AsType(self.expr, selftype))
+
     def desc(self):
         return ExprDSL(Desc(self.expr))
 
@@ -53,6 +56,18 @@ class ExprDSL(Expr):
     @ValueLitterals
     def __gt__(self, other):
         return ExprDSL(GreaterThan(self.expr, other))
+
+    @ValueLitterals
+    def __ge__(self, other):
+        return ExprDSL(GreaterThanOrEquals(self.expr, other))
+
+    @ValueLitterals
+    def __lt__(self, other):
+        return ExprDSL(LesserThan(self.expr, other))
+
+    @ValueLitterals
+    def __le__(self, other):
+        return ExprDSL(LesserThanOrEquals(self.expr, other))
 
     @ValueLitterals
     def __and__(self, other):
@@ -73,6 +88,18 @@ class ExprDSL(Expr):
     @ValueLitterals
     def __mul__(self, other):
         return ExprDSL(Multiply(self.expr, other))
+
+    @ValueLitterals
+    def __mod__(self, other):
+        return ExprDSL(Modulo(self.expr, other))
+
+    @ValueLitterals
+    def __truediv__(self, other):
+        return ExprDSL(TrueDiv(self.expr, other))
+
+    @ValueLitterals
+    def __floordiv__(self, other):
+        return ExprDSL(FloorDiv(self.expr, other))
 
 
 def C(name: str):
