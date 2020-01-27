@@ -6,9 +6,9 @@ import unittest
 import numpy as np
 
 
-class TestOrderBy(unittest.TestCase):
+class TestDrop(unittest.TestCase):
 
-    def test_orderby_simple(self):
+    def test_drop(self):
         data = DataFrame({
             "val1": [2, 1, 4, 3],
             "val2": [1, 1, 2, 2]
