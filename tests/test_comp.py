@@ -1,9 +1,10 @@
 from pandas import DataFrame
 from tests.helpers import ExprTestCase
 from pylars.exprdsl import *
+from pylars.exprdsl import _
 
 
-class TestNumericExpr(ExprTestCase):
+class TestCompExpr(ExprTestCase):
 
     def data(self):
         return DataFrame({
@@ -12,25 +13,25 @@ class TestNumericExpr(ExprTestCase):
         })
 
     def test_eq(self):
-        self.make_test_expr(C("a") == C("b"),
+        self.make_test_expr(_.a == _.b,
                             [True, True, False, False])
 
     def test_ne(self):
-        self.make_test_expr(C("a") != C("b"),
+        self.make_test_expr(_.a != _.b,
                             [False, False, True, True])
 
     def test_lt(self):
-        self.make_test_expr(C("a") < C("b"),
+        self.make_test_expr(_.a < _.b,
                             [False, False, True, True])
 
     def test_le(self):
-        self.make_test_expr(C("a") <= C("b"),
+        self.make_test_expr(_.a <= _.b,
                             [True, True, True, True])
 
     def test_gt(self):
-        self.make_test_expr(C("a") > C("b"),
+        self.make_test_expr(_.a > _.b,
                             [False, False, False, False])
 
     def test_ge(self):
-        self.make_test_expr(C("a") >= C("b"),
+        self.make_test_expr(_.a >= _.b,
                             [True, True, False, False])

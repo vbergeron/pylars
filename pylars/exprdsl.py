@@ -120,3 +120,11 @@ def Sum(name):
 
 def Mean(name):
     return ExprDSL(agg.Mean(name))
+
+
+class Catalog:
+    def __getattribute__(self, attr):
+        return C(attr)
+
+
+_ = Catalog()
