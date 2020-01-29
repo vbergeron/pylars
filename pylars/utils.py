@@ -24,3 +24,19 @@ def extendDSL(base, plugin):
     [setattr(base, name, method)
      for name, method in plugin.__dict__.items()
      if not name.startswith("_")]
+
+
+def regex(s):
+    return f"r\"{s}\""
+
+
+def string(s):
+    return f"\"{s}\""
+
+
+def assign(sym, tgt):
+    return f"{sym}={tgt}"
+
+
+def arglist(*args):
+    return ", ".join(args)

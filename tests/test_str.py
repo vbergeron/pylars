@@ -52,6 +52,11 @@ class TestStringExpr(ExprTestCase):
             False, True, True
         ])
 
+    def test_replace(self):
+        self.make_test_expr(_.animal.replace("e?$", "ololo"), [
+            'dogololo', 'catololo', 'horsololo'
+        ])
+
     def test_len(self):
         self.make_test_expr(_.animal.len(), [
             3, 3, 5

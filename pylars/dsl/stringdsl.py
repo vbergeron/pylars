@@ -18,6 +18,9 @@ class StringDSL:
     def match(self, pat):
         return ExprDSL(Match(self.expr, pat))
 
+    def replace(self, pat, repl):
+        return ExprDSL(Replace(self.expr, pat, repl))
+
     def len(self):
         return ExprDSL(Len(self.expr))
 

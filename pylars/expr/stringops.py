@@ -1,4 +1,5 @@
 from pylars.expr.unary_expr import MethodExpr
+from pylars.utils import regex, string, assign, arglist
 
 
 class Capitalize(MethodExpr):
@@ -21,15 +22,21 @@ class Casefold(MethodExpr):
 
 class Contains(MethodExpr):
     def __init__(self, parent, pat):
-        super().__init__(parent, "str.contains", f"r\"{pat}\"")
+        super().__init__(parent, "str.contains", regex(pat))
 
 
 class Match(MethodExpr):
     def __init__(self, parent, pat):
-        super().__init__(parent, "str.match", f"r\"{pat}\"")
+        super().__init__(parent, "str.match", regex(pat))
 
 
-# replace
+class Replace(MethodExpr):
+    def __init__(self, parent, pat, repl):
+        super().__init__(parent, "str.replace", arglist(
+            assign("pat", regex(pat)),
+            assign("repl", string(repl)))
+        )
+
 # repeat
 # pad
 # center
