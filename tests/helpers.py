@@ -5,10 +5,15 @@ from pylars.exprdsl import *
 
 class ExprTestCase(unittest.TestCase):
 
-    def make_test_expr(self, expr, expected):
+    def make_test_expr(self, expr, expected, debug=False):
+        if debug:
+            c_args = {"export_file": "debug.py"}
+        else:
+            c_args = {}
+
         compute = (Pylar("testinput", self.data().columns)
                    .select(expr.alias("result"))
-                   .compile())
+                   .compile(**c_args))
 
         result = compute(testinput=self.data())
 

@@ -39,6 +39,9 @@ class ExprDSL(Expr):
     def astype(self, selftype):
         return ExprDSL(AsType(self.expr, selftype))
 
+    def isna(self):
+        return ExprDSL(IsNa(self.expr))
+
     def desc(self):
         return ExprDSL(Desc(self.expr))
 
