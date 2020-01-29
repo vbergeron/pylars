@@ -1,7 +1,7 @@
 from pandas import DataFrame
 from tests.helpers import ExprTestCase
-from pylars.exprdsl import *
-from pylars.exprdsl import _
+from pylars.dsl import *
+from pylars.dsl import _
 
 
 class TestNumericExpr(ExprTestCase):

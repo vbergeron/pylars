@@ -1,6 +1,6 @@
 import unittest
 from pylars import Pylar
-from pylars.exprdsl import *
+from pylars.dsl import *
 
 
 class ExprTestCase(unittest.TestCase):

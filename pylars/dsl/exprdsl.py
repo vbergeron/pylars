@@ -1,11 +1,10 @@
 from typing import Set
+from functools import wraps
+from pylars.expr import *
+from pylars.utils import varname
+from pylars.expr.result import Result
 from pylars.expr.binary_expr import *
 from pylars.expr.unary_expr import *
-from pylars.expr import *
-from pylars.expr.result import Result
-from pylars.utils import varname
-import pylars.expr.agg_expr as agg
-from functools import wraps
 
 
 def ValueLitterals(f):
@@ -14,7 +13,7 @@ def ValueLitterals(f):
         if issubclass(type(other), Expr):
             return f(self, other)
         else:
-            return f(self, L(other))
+            return f(self, Litteral(other))
     return wrap
 
 
@@ -44,6 +43,30 @@ class ExprDSL(Expr):
 
     def desc(self):
         return ExprDSL(Desc(self.expr))
+
+    @ValueLitterals
+    def __add__(self, other):
+        return ExprDSL(Plus(self.expr, other))
+
+    @ValueLitterals
+    def __sub__(self, other):
+        return ExprDSL(Minus(self.expr, other))
+
+    @ValueLitterals
+    def __mul__(self, other):
+        return ExprDSL(Multiply(self.expr, other))
+
+    @ValueLitterals
+    def __mod__(self, other):
+        return ExprDSL(Modulo(self.expr, other))
+
+    @ValueLitterals
+    def __truediv__(self, other):
+        return ExprDSL(TrueDiv(self.expr, other))
+
+    @ValueLitterals
+    def __floordiv__(self, other):
+        return ExprDSL(FloorDiv(self.expr, other))
 
     def __invert__(self):
         return ExprDSL(Not(self.expr))
@@ -79,55 +102,3 @@ class ExprDSL(Expr):
     @ValueLitterals
     def __or__(self, other):
         return ExprDSL(Or(self.expr, other))
-
-    @ValueLitterals
-    def __add__(self, other):
-        return ExprDSL(Plus(self.expr, other))
-
-    @ValueLitterals
-    def __sub__(self, other):
-        return ExprDSL(Minus(self.expr, other))
-
-    @ValueLitterals
-    def __mul__(self, other):
-        return ExprDSL(Multiply(self.expr, other))
-
-    @ValueLitterals
-    def __mod__(self, other):
-        return ExprDSL(Modulo(self.expr, other))
-
-    @ValueLitterals
-    def __truediv__(self, other):
-        return ExprDSL(TrueDiv(self.expr, other))
-
-    @ValueLitterals
-    def __floordiv__(self, other):
-        return ExprDSL(FloorDiv(self.expr, other))
-
-
-def C(name: str):
-    return ExprDSL(Column(name))
-
-
-def L(name: str):
-    return ExprDSL(Litteral(name))
-
-
-def Count():
-    return ExprDSL(agg.Count())
-
-
-def Sum(name):
-    return ExprDSL(agg.Sum(name))
-
-
-def Mean(name):
-    return ExprDSL(agg.Mean(name))
-
-
-class Catalog:
-    def __getattribute__(self, attr):
-        return C(attr)
-
-
-_ = Catalog()

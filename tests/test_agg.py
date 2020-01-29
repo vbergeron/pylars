@@ -1,6 +1,7 @@
 from helpers import AggTestCase
 from pandas import DataFrame
-from pylars.exprdsl import *
+from pylars.dsl import *
+from pylars.dsl import _
 
 
 class TestAgg(AggTestCase):

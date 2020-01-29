@@ -1,6 +1,5 @@
 from pandas import DataFrame
 from pandas.testing import assert_frame_equal
-from pylars.exprdsl import *
 from pylars import Pylar
 import unittest
 import numpy as np

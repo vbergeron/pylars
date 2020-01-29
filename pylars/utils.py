@@ -18,3 +18,9 @@ def flatlist(*args):
         if type(arg) == list:
             [ret.append(it) for it in arg]
     return ret
+
+
+def extendDSL(base, plugin):
+    [setattr(base, name, method)
+     for name, method in plugin.__dict__.items()
+     if not name.startswith("_")]

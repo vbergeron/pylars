@@ -1,6 +1,6 @@
 from typing import Set, List, Dict, Callable
 from pandas import DataFrame
-from pylars.exprdsl import ExprDSL, C
+from pylars.dsl import ExprDSL, C
 from pylars.expr.agg_expr import Count
 from pylars.expr.desc import Desc
 from pylars.utils import varname, flatlist
