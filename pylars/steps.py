@@ -167,12 +167,12 @@ class GroupBy(LinearStep):
 class Join(Step):
     lhs: Step
     rhs: Step
-    on: List[str]
+    on: List[ExprDSL]
     how: str
 
-    def __init__(self, lhs: Step, rhs: Step, on: List[str], how: str):
-        check_schema(lhs.schema, map(C, on))
-        check_schema(rhs.schema, map(C, on))
+    def __init__(self, lhs: Step, rhs: Step, on: List[ExprDSL], how: str):
+        check_schema(lhs.schema, on)
+        check_schema(rhs.schema, on)
         self.lhs = lhs
         self.rhs = rhs
         self.on = on
@@ -186,7 +186,7 @@ class Join(Step):
             f"{self.varname} = {self.lhs.varname}.merge(",
             f"    {self.rhs.varname},",
             f"    how='{self.how}',",
-            f"    on={self.on}",
+            f"    on={list(map(lambda x: x.get_name(), self.on))}",
             f")"
         )
 

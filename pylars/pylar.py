@@ -71,20 +71,20 @@ class Pylar:
         self.ast = GroupBy(self.ast, grps, *args)
         return self
 
-    def inner_join(self, right, on: List[str]):
-        self.ast = Join(self.ast, right.ast, on, "inner")
+    def inner_join(self, right, *on: List[ExprDSL]):
+        self.ast = Join(self.ast, right.ast, list(on), "inner")
         return self
 
-    def left_join(self, right, on: List[str]):
-        self.ast = Join(self.ast, right.ast, on, "left")
+    def left_join(self, right, *on: List[ExprDSL]):
+        self.ast = Join(self.ast, right.ast, list(on), "left")
         return self
 
-    def right_join(self, right, on: List[str]):
-        self.ast = Join(self.ast, right.ast, on, "right")
+    def right_join(self, right, *on: List[ExprDSL]):
+        self.ast = Join(self.ast, right.ast, list(on), "right")
         return self
 
-    def outer_join(self, right, on: List[str]):
-        self.ast = Join(self.ast, right.ast, on, "outer")
+    def outer_join(self, right, *on: List[ExprDSL]):
+        self.ast = Join(self.ast, right.ast, list(on), "outer")
         return self
 
     def order_by(self, *by):

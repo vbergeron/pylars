@@ -2,6 +2,7 @@
 from pandas import DataFrame
 from pandas.testing import assert_frame_equal
 from pylars import Pylar
+from pylars.dsl import _
 import unittest
 import numpy as np
 
@@ -18,8 +19,10 @@ class TestJoins(unittest.TestCase):
             "val_right": ["r", "r"]
         })
 
-        join = (Pylar("l", data_left.columns)
-                .inner_join(Pylar("r", data_right.columns), on=["key"]))
+        pyl = Pylar("l", data_left.columns)
+        pyr = Pylar("r", data_right.columns)
+
+        join = pyl.inner_join(pyr, _.key)
 
         res = join.compile()(l=data_left, r=data_right)
 
@@ -39,8 +42,10 @@ class TestJoins(unittest.TestCase):
             "val_right": ["r", "r"]
         })
 
-        join = (Pylar("l", data_left.columns)
-                .left_join(Pylar("r", data_right.columns), on=["key"]))
+        pyl = Pylar("l", data_left.columns)
+        pyr = Pylar("r", data_right.columns)
+
+        join = pyl.left_join(pyr, _.key)
 
         res = join.compile()(l=data_left, r=data_right)
 
@@ -60,8 +65,10 @@ class TestJoins(unittest.TestCase):
             "val_right": ["r", "r", "r", "r"]
         })
 
-        join = (Pylar("l", data_left.columns)
-                .right_join(Pylar("r", data_right.columns), on=["key"]))
+        pyl = Pylar("l", data_left.columns)
+        pyr = Pylar("r", data_right.columns)
+
+        join = pyl.right_join(pyr, _.key)
 
         res = join.compile()(l=data_left, r=data_right)
 
@@ -81,8 +88,10 @@ class TestJoins(unittest.TestCase):
             "val_right": ["r", "r"]
         })
 
-        join = (Pylar("l", data_left.columns)
-                .outer_join(Pylar("r", data_right.columns), on=["key"]))
+        pyl = Pylar("l", data_left.columns)
+        pyr = Pylar("r", data_right.columns)
+
+        join = pyl.outer_join(pyr, _.key)
 
         res = join.compile()(l=data_left, r=data_right)
 
