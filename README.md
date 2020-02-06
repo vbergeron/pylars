@@ -1,2 +1,2 @@
 # pylars
-A declarative interface to build pipelines using pandas
+A declarative interface to build pipelines using pandas.

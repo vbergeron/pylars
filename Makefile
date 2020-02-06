@@ -6,9 +6,14 @@ coverage:
 	coverage report -m
 	coverage erase
 
-release: clean
+setup: clean
 	python setup.py sdist bdist_wheel
+
+release: setup
 	twine upload --repository-url $(PYLAR_UPLOAD_URL) dist/*
+
+release-public: setup
+	twine upload dist/*
 
 clean:
 	rm -rf debug.py
@@ -17,4 +22,4 @@ clean:
 	find pylars -iname __pycache__ | xargs rm -rf
 	find tests  -iname __pycache__ | xargs rm -rf
 
-.PHONY: tests coverage release clean
+.PHONY: tests coverage setup release release-public clean
