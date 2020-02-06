@@ -7,3 +7,4 @@ debug.py
 build
 dist
 *.egg-info
+env.sh
